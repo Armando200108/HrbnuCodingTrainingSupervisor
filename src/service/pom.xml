@@ -11,6 +11,7 @@
     <modules>
         <module>cts-api</module>
         <module>cts-eureka-server</module>
+        <module>cts-gateway</module>
     </modules>
     <properties>
         <java.version>11</java.version>

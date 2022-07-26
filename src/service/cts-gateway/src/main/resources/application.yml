@@ -1,0 +1,31 @@
+server:
+  port: 4001
+
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+
+    service-url:
+      defaultZone: http://localhost:7001/eureka
+  instance:
+    instance-id: cts-gateway
+    hostname: cts-gateway
+
+
+spring:
+  application:
+    name: cts-gateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+        - id: cts-eureka-server
+          uri: lb://CTS-EUREKA-SERVER
+          predicates:
+            - Path=/eureka/**
+          filters:
+            - StripPrefix=1
