@@ -2,13 +2,15 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
       <profile name="Maven default annotation processors profile" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="cts-api" />
+        <module name="cts-security-uaa" />
         <module name="cts-eureka-server" />
         <module name="cts-gateway" />
-        <module name="cts-api" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -21,6 +23,7 @@
       <module name="cts-eureka-server" options="-parameters" />
       <module name="cts-gateway" options="-parameters" />
       <module name="cts-judge-bridge" options="-parameters" />
+      <module name="cts-security-uaa" options="-parameters" />
     </option>
   </component>
 </project>
