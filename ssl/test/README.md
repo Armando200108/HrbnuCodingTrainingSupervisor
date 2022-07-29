@@ -1,6 +1,6 @@
-# 创建密钥库
+# 测试用密钥库及证书
 
-## keystore格式
+## keystore
 
 密钥库详情：
 
@@ -36,7 +36,7 @@ keytool -genkeypair -alias simrobotkey -keyalg RSA -keysize 2048 -validity 365 -
 - keystore  指定keystore文件储存位置
 
 
-## jks格式
+## jks
 
 说明：
 
