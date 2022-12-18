@@ -7,22 +7,29 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="cts-provider-problemSet-4001" />
         <module name="cts-api" />
-        <module name="cts-security-uaa" />
-        <module name="cts-eureka-server" />
-        <module name="cts-gateway" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="cts-client" target="11" />
+      <module name="cts-eureka-server" target="11" />
+      <module name="cts-gateway" target="11" />
       <module name="cts-judge-bridge" target="11" />
+      <module name="cts-provider-problem-4001" target="11" />
+      <module name="cts-security-resource-server" target="11" />
+      <module name="cts-security-uaa" target="11" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="cts-api" options="-parameters" />
+      <module name="cts-api" options="" />
+      <module name="cts-client" options="-parameters" />
       <module name="cts-eureka-server" options="-parameters" />
       <module name="cts-gateway" options="-parameters" />
       <module name="cts-judge-bridge" options="-parameters" />
+      <module name="cts-provider-problem-4001" options="-parameters" />
+      <module name="cts-security-resource-server" options="-parameters" />
       <module name="cts-security-uaa" options="-parameters" />
     </option>
   </component>

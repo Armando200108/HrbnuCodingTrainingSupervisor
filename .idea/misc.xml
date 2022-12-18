@@ -5,14 +5,17 @@
     <option name="originalFiles">
       <list>
         <option value="$PROJECT_DIR$/src/service/pom.xml" />
-        <option value="$PROJECT_DIR$/src/service/cts-eureka-server/pom.xml" />
-        <option value="$PROJECT_DIR$/src/service/cts-gateway/pom.xml" />
-        <option value="$PROJECT_DIR$/src/service/cts-security-uaa/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">
       <set>
+        <option value="$PROJECT_DIR$/src/service/cts-client/pom.xml" />
+        <option value="$PROJECT_DIR$/src/service/cts-eureka-server/pom.xml" />
+        <option value="$PROJECT_DIR$/src/service/cts-gateway/pom.xml" />
         <option value="$PROJECT_DIR$/src/service/cts-judge-bridge/pom.xml" />
+        <option value="$PROJECT_DIR$/src/service/cts-provider-problem-4001/pom.xml" />
+        <option value="$PROJECT_DIR$/src/service/cts-security-resource-server/pom.xml" />
+        <option value="$PROJECT_DIR$/src/service/cts-security-uaa/pom.xml" />
       </set>
     </option>
   </component>
