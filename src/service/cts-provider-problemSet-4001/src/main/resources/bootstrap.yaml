@@ -8,8 +8,10 @@ spring:
     nacos:
       discovery:
         server-addr: 127.0.0.1:8848
+        namespace: bd1dd934-f81b-4b66-8767-e0e55d51154c
+        group: API_GROUP
       config:
         server-addr: 127.0.0.1:8848
         file-extension: yaml
         namespace: bd1dd934-f81b-4b66-8767-e0e55d51154c
-        group: DEFAULT_GROUP
+        group: API_GROUP

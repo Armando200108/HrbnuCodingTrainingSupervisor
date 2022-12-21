@@ -66,4 +66,8 @@ public class Problem implements Serializable {
      * 题目上传人
      */
     private String author;
+    /**
+     * 隐藏题目?
+     */
+    private Boolean hide;
 }

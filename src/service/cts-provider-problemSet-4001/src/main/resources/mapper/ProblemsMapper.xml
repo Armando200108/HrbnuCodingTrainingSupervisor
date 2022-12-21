@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.pdteam.dao.ProblemsMapper">
+    <select id="queryNotHiddenShortProblemsInfo" resultType="cn.pdteam.pojo.problemSet.ShortProblemInfo" useCache="false">
+        SELECT *
+        FROM cts_problem.problems_info_short
+        WHERE hide = 0
+        <if test="param3 != null and param3 != ''">
+            AND name LIKE '%${param3}%'
+        </if>
+        ORDER BY id
+        <if test="param1 != null and param2 != null">
+            LIMIT ${(param1-1)*param2},${param2}
+        </if>;
+    </select>
+
+    <select id="queryAllShortProblemsInfo" resultType="cn.pdteam.pojo.problemSet.ShortProblemInfo">
+        SELECT *
+        FROM cts_problem.problems_info_short
+        <if test="param3 != null and param3 != ''">
+            WHERE name LIKE '%${param3}%'
+        </if>
+        ORDER BY id
+        <if test="param1 != null and param2 != null">
+            LIMIT ${(param1-1)*param2},${param2}
+        </if>;
+    </select>
+
+    <select id="queryProblemInfoById" resultType="cn.pdteam.pojo.problemSet.entity.Problem" parameterType="int">
+        SELECT * FROM cts_problem.problem_info WHERE id=#{id,jdbcType=INTEGER};
+    </select>
+
+    <select id="queryTagsByProblemId" parameterType="int" resultType="string" useCache="false">
+        SELECT name
+        FROM cts_problem.tag_info
+        WHERE id IN
+        (SELECT cts_problem.pt_bind.tagId AS id
+        FROM cts_problem.pt_bind
+        WHERE problemId=#{problemId,jdbcType=INTEGER});
+    </select>
+
+    <insert id="addProblem" parameterType="cn.pdteam.pojo.problemSet.entity.Problem" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        INSERT INTO cts_problem.problem_info (name, content, degreeDifficulty, timeLimit, memoryLimit, samplesCount,
+        sampleFileName, testsCount, testFileName, judgmentMode, trainerFilename, author) VALUES
+        (#{name,jdbcType=VARCHAR},#{content,jdbcType=VARCHAR},#{degreeDifficulty,jdbcType=INTEGER},#{timeLimit,jdbcType=INTEGER},
+        #{memoryLimit,jdbcType=INTEGER},#{samplesCount,jdbcType=INTEGER},#{sampleFileName,jdbcType=VARCHAR},
+        #{testsCount,jdbcType=INTEGER},#{testFileName,jdbcType=VARCHAR},#{judgmentMode,jdbcType=INTEGER},
+        #{trainerFilename,jdbcType=VARCHAR},#{author,jdbcType=VARCHAR});
+    </insert>
+
+    <insert id="addPtBind">
+        INSERT INTO cts_problem.pt_bind (problemId, tagId) VALUES
+            <foreach collection="param2" separator="," item="item">
+                (#{param1,jdbcType=INTEGER},#{item,jdbcType=INTEGER})
+            </foreach>
+    </insert>
+
+    <update id="updateProblem" parameterType="cn.pdteam.pojo.problemSet.entity.Problem">
+        UPDATE cts_problem.problem_info SET
+        name=#{name,jdbcType=VARCHAR},
+        content=#{content,jdbcType=VARCHAR},
+        degreeDifficulty=#{degreeDifficulty,jdbcType=INTEGER},
+        timeLimit=#{timeLimit,jdbcType=INTEGER},
+        memoryLimit=#{memoryLimit,jdbcType=INTEGER},
+        samplesCount=#{samplesCount,jdbcType=INTEGER},
+        sampleFileName=#{sampleFileName,jdbcType=VARCHAR},
+        testFileName=#{testFileName,jdbcType=VARCHAR},
+        testsCount=#{testsCount,jdbcType=INTEGER},
+        judgmentMode=#{judgmentMode,jdbcType=INTEGER},
+        trainerFilename=#{trainerFilename,jdbcType=VARCHAR},
+        author=#{author,jdbcType=VARCHAR},
+        hide=#{hide,jdbcType=BOOLEAN}
+        WHERE id=#{id,jdbcType=INTEGER};
+    </update>
+
+    <delete id="removeProblemById" parameterType="int">
+        DELETE FROM cts_problem.problem_info WHERE id=#{id,jdbcType=INTEGER};
+    </delete>
+    
+    <delete id="removeProblemAllTags" parameterType="int">
+        DELETE
+        FROM cts_problem.pt_bind
+        WHERE problemId = #{problemId,jdbcType=INTEGER};
+    </delete>
+</mapper>

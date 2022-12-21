@@ -11,5 +11,4 @@ import java.io.Serializable;
 @NoArgsConstructor
 public abstract class Response implements Serializable {
     private Boolean success;
-    private String message;
 }
