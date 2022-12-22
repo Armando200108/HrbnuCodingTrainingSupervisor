@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.pdteam.dao.StatusMapper">
+    <select id="queryStatusById" parameterType="int" resultType="cn.pdteam.pojo.problemSet.entity.Status">
+        SELECT *
+        FROM cts_problem.status
+        WHERE id = #{id,jdbcType=INTEGER};
+    </select>
+    <select id="queryStatus" parameterType="string" resultType="cn.pdteam.pojo.problemSet.entity.Status">
+        SELECT * FROM cts_problem.status
+        <if test="param3 != null and param3 != ''">
+            WHERE status.username LIKE '%${param3}%'
+        </if>
+        ORDER BY id
+        <if test="param1 != null and param2 != null">
+            LIMIT ${(param1 - 1) * param2},${param2}
+        </if>;
+    </select>
+
+    <select id="queryStatusByContestId" resultType="cn.pdteam.pojo.problemSet.entity.Status">
+        SELECT *
+        FROM cts_problem.status
+        WHERE contestId = #{param1,jdbcType=INTEGER}
+        <if test="param3 != null and param3 != ''">
+            AND status.username LIKE '%${param3}%'
+        </if>
+        ORDER BY id
+        <if test="param1 != null and param2 != null">
+            LIMIT ${(param1 - 1) * param2},${param2}
+        </if>;
+    </select>
+
+    <insert id="addStatus" parameterType="cn.pdteam.pojo.problemSet.entity.Status" keyColumn="id" keyProperty="id" useGeneratedKeys="true">
+        INSERT INTO cts_problem.status (username, problemId, contestId, result, time, memory, length, language,
+        submitDateTime) VALUES
+        (#{username,jdbcType=VARCHAR},#{problemId,jdbcType=INTEGER},#{contestId,jdbcType=INTEGER},
+        #{result,jdbcType=INTEGER},#{time,jdbcType=INTEGER},#{memory,jdbcType=INTEGER},
+        #{length,jdbcType=INTEGER},#{language,jdbcType=INTEGER},#{submitDateTime,jdbcType=TIMESTAMP});
+    </insert>
+
+    <update id="updateStatus" parameterType="cn.pdteam.pojo.problemSet.entity.Status">
+        UPDATE cts_problem.status SET
+        result=#{result,jdbcType=INTEGER},time=#{time,jdbcType=INTEGER},
+        memory=#{memory,jdbcType=INTEGER},length=#{length,jdbcType=INTEGER}
+        WHERE id=#{id,jdbcType=INTEGER};
+    </update>
+</mapper>
