@@ -4,16 +4,16 @@ import cn.pdteam.dao.TagsMapper;
 import cn.pdteam.pojo.CommonResult;
 import cn.pdteam.pojo.problemSet.entity.Tag;
 import com.alibaba.cloud.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.Resource;
 import java.util.List;
 import java.util.Map;
 
 @RestController
 @RequestMapping("/tags")
 public class TagsController {
-    @Resource
+    @Autowired
     TagsMapper tagsMapper;
 
     @GetMapping("/query")

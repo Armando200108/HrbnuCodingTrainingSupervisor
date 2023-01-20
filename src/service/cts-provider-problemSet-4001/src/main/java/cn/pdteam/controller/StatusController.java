@@ -4,9 +4,9 @@ import cn.pdteam.dao.StatusMapper;
 import cn.pdteam.pojo.CommonResult;
 import cn.pdteam.pojo.problemSet.entity.Status;
 import com.alibaba.cloud.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.Resource;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
@@ -14,7 +14,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/status")
 public class StatusController {
-    @Resource
+    @Autowired
     StatusMapper statusMapper;
 
     @GetMapping("/query")
@@ -59,7 +59,7 @@ public class StatusController {
 
     @PostMapping("/add")
     public CommonResult addStatus(@RequestParam("problemId") Integer problemId,
-                                  @RequestParam(value = "contestId",required = false) Integer contestId,
+                                  @RequestParam(value = "contestId", required = false) Integer contestId,
                                   @RequestParam("username") String username,
                                   @RequestParam("language") Integer language) {
         Status status = new Status(0, username, problemId, contestId, 7, 0, 0, 0, language, LocalDateTime.now());
