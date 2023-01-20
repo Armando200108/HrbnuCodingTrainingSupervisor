@@ -1,0 +1,22 @@
+server:
+  port: 4002
+
+spring:
+  application:
+    name: CTS-Provider-Contest
+  profiles:
+    active: dev
+
+  cloud:
+    nacos:
+      discovery:
+        server-addr: nacos.pdteam.cn:8662
+        namespace: bd1dd934-f81b-4b66-8767-e0e55d51154c
+        group: API_GROUP
+      config:
+        server-addr: nacos.pdteam.cn:8662
+        file-extension: yaml
+        namespace: bd1dd934-f81b-4b66-8767-e0e55d51154c
+        group: API_GROUP
+
+

@@ -7,6 +7,7 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="cts-provider-contest-4002" />
         <module name="cts-provider-problemSet-4001" />
         <module name="cts-api" />
       </profile>

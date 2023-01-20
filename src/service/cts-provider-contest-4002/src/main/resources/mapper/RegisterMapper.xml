@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.pdteam.dao.RegisterMapper">
+    <insert id="signUp" parameterType="cn.pdteam.pojo.contest.request.SignUpContestRequest">
+        INSERT INTO cts_contest.register_info (contestId, user)
+        VALUES (#{contestId,jdbcType=VARCHAR}, #{user,jdbcType=VARCHAR});
+    </insert>
+
+    <delete id="cancelSignUpByContestIdAndUser"
+            parameterType="cn.pdteam.pojo.contest.request.CancelSignUpContest2UserRequest">
+        DELETE
+        FROM cts_contest.register_info
+        WHERE contestId = #{contestId,jdbcType=VARCHAR}
+          AND user = #{user,jdbcType=VARCHAR};
+    </delete>
+
+    <delete id="cancelSignUpByRegId" parameterType="int">
+        DELETE
+        FROM cts_contest.register_info
+        WHERE id = #{regId,jdbcType=INTEGER};
+    </delete>
+
+    <select id="checkSignUp" resultType="boolean">
+        SELECT COUNT(*)
+        FROM cts_contest.register_info
+        WHERE user = #{param2,jdbcType=VARCHAR}
+          AND contestId = #{param1,jdbcType=VARCHAR};
+    </select>
+
+    <select id="queryRegisterInfoById" parameterType="int" resultType="cn.pdteam.pojo.contest.entity.RegisterInfo">
+        SELECT *
+        FROM cts_contest.register_info
+        WHERE id = #{id,jdbcType=INTEGER};
+    </select>
+
+    <select id="queryRegisterUserList" resultType="cn.pdteam.pojo.contest.entity.RegisterInfo">
+        SELECT *
+        FROM cts_contest.register_info
+        WHERE contestId = #{param4,jdbcType=VARCHAR}
+        <if test="param3 != null and param3 != ''">
+            AND user LIKE '%${param3}%'
+        </if>
+        <if test="param1 != null and param2 != null">
+            LIMIT ${(param1-1)*param2},${param2}
+        </if>;
+    </select>
+
+    <select id="queryRegisterCount" resultType="int">
+        SELECT COUNT(*)
+        FROM cts_contest.register_info
+        WHERE contestId = #{param2,jdbcType=VARCHAR}
+        <if test="param1 != null and param1 != ''">
+            AND user LIKE '%${param1}%'
+        </if>;
+    </select>
+</mapper>

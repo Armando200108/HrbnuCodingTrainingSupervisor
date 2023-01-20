@@ -9,6 +9,8 @@ import java.io.Serializable;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public abstract class Response implements Serializable {
+public class CommonResponse implements Serializable {
+    private Integer code;
     private Boolean success;
+    private String message;
 }

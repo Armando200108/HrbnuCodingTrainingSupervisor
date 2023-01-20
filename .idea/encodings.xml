@@ -9,6 +9,8 @@
     <file url="file://$PROJECT_DIR$/src/service/cts-gateway/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/service/cts-gateway/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/service/cts-judge-bridge/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/service/cts-provider-contest-4002/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/service/cts-provider-contest-4002/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/service/cts-provider-problem-4001/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/service/cts-provider-problemSet-4001/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/service/cts-provider-problemSet-4001/src/main/resources" charset="UTF-8" />

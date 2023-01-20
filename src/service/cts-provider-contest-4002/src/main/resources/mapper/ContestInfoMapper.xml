@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.pdteam.dao.ContestInfoMapper">
+    <insert id="addContest" parameterType="cn.pdteam.pojo.contest.entity.ContestInfo">
+        INSERT INTO cts_contest.contest_info (id,logo, name, introduction, registrationStartTime, registrationEndTime,
+                                              contestStartTime, contestEndTime, notice, createUser)
+        VALUES (#{id,jdbcType=VARCHAR},#{logo,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{introduction,jdbcType=VARCHAR},
+                #{registrationStartTime,jdbcType=TIMESTAMP}, #{registrationEndTime,jdbcType=TIMESTAMP},
+                #{contestStartTime,jdbcType=TIMESTAMP}, #{contestEndTime,jdbcType=TIMESTAMP},
+                #{notice,jdbcType=VARCHAR}, #{createUser,jdbcType=VARCHAR});
+    </insert>
+
+    <insert id="addContestProblem">
+        INSERT INTO cts_contest.pc_bind (contestId, problenId, `order`) VALUES
+        <foreach collection="param2" item="problemId" separator="," index="index">
+            (#{param1,jdbcType=VARCHAR}, #{problemId,jdbcType=INTEGER}, #{index})
+        </foreach>;
+    </insert>
+
+    <delete id="removeContest" parameterType="string">
+        DELETE
+        FROM cts_contest.contest_info
+        WHERE id = #{contestId,jdbcType=VARCHAR};
+    </delete>
+
+    <delete id="removeContestProblems" parameterType="string">
+        DELETE
+        FROM cts_contest.pc_bind
+        WHERE contestId = #{contestId,jdbcType=VARCHAR};
+    </delete>
+
+    <update id="updateContestInfo" parameterType="cn.pdteam.pojo.contest.entity.ContestInfo">
+        UPDATE cts_contest.contest_info
+        SET `name`=#{name,jdbcType=VARCHAR},
+            introduction=#{introduction,jdbcType=VARCHAR},
+            registrationStartTime=#{registrationStartTime,jdbcType=TIMESTAMP},
+            registrationEndTime=#{registrationEndTime,jdbcType=TIMESTAMP},
+            contestStartTime=#{contestStartTime,jdbcType=TIMESTAMP},
+            contestEndTime=#{contestEndTime,jdbcType=TIMESTAMP},
+            notice=#{notice,jdbcType=VARCHAR}
+        WHERE id = #{id,jdbcType=VARCHAR};
+    </update>
+
+    <select id="queryContestInfo" parameterType="string" resultType="cn.pdteam.pojo.contest.entity.ContestInfo" flushCache="true">
+        SELECT *
+        FROM cts_contest.contest_info
+        WHERE id = #{contestId,jdbcType=VARCHAR};
+    </select>
+
+    <select id="queryShortContestInfo" parameterType="string" resultType="cn.pdteam.pojo.contest.ShortContestInfo" flushCache="true">
+        SELECT id,
+               logo,
+               name,
+               introduction,
+               registrationStartTime,
+               registrationEndTime,
+               contestStartTime,
+               contestEndTime,
+               createUser
+        FROM cts_contest.contest_info
+        WHERE id = #{contestId,jdbcType=VARCHAR};
+    </select>
+
+    <select id="queryContestList" parameterType="cn.pdteam.pojo.contest.QueryListOptions" resultType="cn.pdteam.pojo.contest.ShortContestInfo">
+        SELECT id,
+               logo,
+               name,
+               introduction,
+               registrationStartTime,
+               registrationEndTime,
+               contestStartTime,
+               contestEndTime,
+               createUser
+        FROM cts_contest.contest_info
+        WHERE 1 = 1
+        <if test="allowedToSignUp">
+            AND 1 = 0
+               OR (NOW() &gt; registrationStartTime AND NOW() &lt; registrationEndTime)
+        </if>
+        <if test="contestStarted">
+            AND 1 = 0
+               OR (NOW() &gt; contestStartTime AND NOW() &lt; contestEndTime)
+        </if>
+        <if test="resultsAnnounced">
+            AND 1 = 0
+               OR (NOW() &gt; contestEndTime)
+        </if>
+        <if test="registered">
+            AND 1 = 0
+               OR (id IN (SELECT contestId AS id FROM cts_contest.register_info WHERE user = #{user,jdbcType=VARCHAR}))
+        </if>
+        <if test="notRegistered">
+            AND 1 = 0
+               OR(id NOT IN
+                  (SELECT contestId AS id FROM cts_contest.register_info WHERE user = #{user,jdbcType=VARCHAR}))
+        </if>
+        <if test="search != null and search != ''">
+            AND 1 = 0
+               OR (name LIKE '%${search}%')
+        </if>
+        ORDER BY registrationEndTime
+        <if test="page != null and limit != null">
+            LIMIT ${(page-1)*limit},${limit}
+        </if>;
+    </select>
+</mapper>
