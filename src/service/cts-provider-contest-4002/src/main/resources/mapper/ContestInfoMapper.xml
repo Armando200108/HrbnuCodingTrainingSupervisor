@@ -105,4 +105,52 @@
             LIMIT ${(page-1)*limit},${limit}
         </if>;
     </select>
+
+    <select id="queryContestListCount" parameterType="cn.pdteam.pojo.contest.QueryListOptions" resultType="int" useCache="false" flushCache="true">
+        SELECT COUNT(cts_contest.contest_info.id) FROM cts_contest.contest_info
+        WHERE 1 = 1
+        <if test="allowedToSignUp">
+            AND 1 = 0
+            OR (NOW() &gt; registrationStartTime AND NOW() &lt; registrationEndTime)
+        </if>
+        <if test="contestStarted">
+            AND 1 = 0
+            OR (NOW() &gt; contestStartTime AND NOW() &lt; contestEndTime)
+        </if>
+        <if test="resultsAnnounced">
+            AND 1 = 0
+            OR (NOW() &gt; contestEndTime)
+        </if>
+        <if test="registered">
+            AND 1 = 0
+            OR (id IN (SELECT contestId AS id FROM cts_contest.register_info WHERE user = #{user,jdbcType=VARCHAR}))
+        </if>
+        <if test="notRegistered">
+            AND 1 = 0
+            OR(id NOT IN
+            (SELECT contestId AS id FROM cts_contest.register_info WHERE user = #{user,jdbcType=VARCHAR}))
+        </if>
+        <if test="search != null and search != ''">
+            AND 1 = 0
+            OR (name LIKE '%${search}%')
+        </if>
+        <if test="page != null and limit != null">
+            LIMIT ${(page-1)*limit},${limit}
+        </if>
+    </select>
+
+    <select id="checkContestExist" parameterType="string" resultType="boolean">
+        SELECT COUNT(*)
+        FROM cts_contest.contest_info
+        WHERE id = #{contestId,jdbcType=VARCHAR}
+        LIMIT 1;
+    </select>
+
+    <select id="queryContestProblems" parameterType="string" resultType="int">
+        SELECT problenId
+        FROM cts_contest.pc_bind
+        WHERE contestId = #{contestId,jdbcType=VARCHAR}
+        ORDER BY `order`;
+    </select>
+
 </mapper>

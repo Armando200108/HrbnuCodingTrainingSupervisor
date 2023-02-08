@@ -3,6 +3,8 @@ package cn.pdteam.pojo.contest;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
+import java.io.Serializable;
+
 /**
  * 竞赛列表查询筛选配置项
  *
@@ -19,5 +21,5 @@ import jakarta.validation.constraints.NotNull;
 public record QueryListOptions(Integer page, Integer limit, String search,
                                Boolean allowedToSignUp, Boolean contestStarted, Boolean resultsAnnounced,
                                Boolean registered, Boolean notRegistered,
-                               @NotBlank(message = "用户名不能为空") String user) {
+                               @NotBlank(message = "用户名不能为空") String user) implements Serializable {
 }

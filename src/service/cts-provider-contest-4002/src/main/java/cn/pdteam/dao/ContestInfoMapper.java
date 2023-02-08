@@ -24,4 +24,10 @@ public interface ContestInfoMapper {
     ShortContestInfo queryShortContestInfo(String contestId);
 
     List<ShortContestInfo> queryContestList(QueryListOptions options);
+
+    Integer queryContestListCount(QueryListOptions options);
+
+    Boolean checkContestExist(String contestId);
+
+    List<Integer> queryContestProblems(String contestId);
 }

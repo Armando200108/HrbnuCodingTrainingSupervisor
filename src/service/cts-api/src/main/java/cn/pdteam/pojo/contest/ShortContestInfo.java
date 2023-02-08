@@ -3,6 +3,7 @@ package cn.pdteam.pojo.contest;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.validation.annotation.Validated;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
@@ -20,5 +21,5 @@ import java.time.LocalDateTime;
 public record ShortContestInfo(String id, String logo,String name, String introduction,
                                LocalDateTime registrationStartTime, LocalDateTime registrationEndTime,
                                LocalDateTime contestStartTime, LocalDateTime contestEndTime,
-                               String createUser) {
+                               String createUser) implements Serializable {
 }
