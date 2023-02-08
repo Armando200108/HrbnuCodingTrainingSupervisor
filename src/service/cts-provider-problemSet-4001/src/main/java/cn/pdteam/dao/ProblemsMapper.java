@@ -16,6 +16,8 @@ public interface ProblemsMapper {
 
     List<String> queryTagsByProblemId(Integer problemId);
 
+    ShortProblemInfo queryShortProblemInfo(Integer id);
+
     Integer addProblem(Problem problem);
 
     Integer addPtBind(Integer problemId, List<Integer> tagsId);

@@ -89,6 +89,12 @@ public class ProblemsController {
         return new CommonResult<>(200, null, new ProblemInfoDetails(problem, tags));
     }
 
+    @GetMapping("/query/short/{id}")
+    public CommonResult<ShortProblemInfo> queryShortProblemInfo(@PathVariable("id") Integer id) {
+        ShortProblemInfo shortProblemInfo = problemsMapper.queryShortProblemInfo(id);
+        return new CommonResult<>(200, "success", shortProblemInfo);
+    }
+
     @PostMapping("/add")
     @Transactional
     public CommonResult<ProblemInfoDetails> addProblem(@RequestBody AddProblemRequest request) {

@@ -41,6 +41,12 @@
         WHERE problemId=#{problemId,jdbcType=INTEGER});
     </select>
 
+    <select id="queryShortProblemInfo" parameterType="int" resultType="cn.pdteam.pojo.problemSet.ShortProblemInfo" useCache="false" flushCache="true">
+        SELECT *
+        FROM cts_problem.problems_info_short
+        WHERE id = #{id,jdbcType=INTEGER};
+    </select>
+
     <insert id="addProblem" parameterType="cn.pdteam.pojo.problemSet.entity.Problem" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
         INSERT INTO cts_problem.problem_info (name, content, degreeDifficulty, timeLimit, memoryLimit, samplesCount,
         sampleFileName, testsCount, testFileName, judgmentMode, trainerFilename, author) VALUES
