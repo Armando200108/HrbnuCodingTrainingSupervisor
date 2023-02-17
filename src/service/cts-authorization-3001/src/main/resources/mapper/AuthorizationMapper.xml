@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.pdteam.dao.AuthorizationMapper">
+    <select id="getClientName" parameterType="string" resultType="string" flushCache="true" useCache="false">
+        SELECT client_name
+        FROM cts_authorization.oauth2_registered_client
+        WHERE client_id = #{clientId,jdbcType=VARCHAR};
+    </select>
+
+    <resultMap id="string,string" type="java.util.Map">
+    </resultMap>
+    <select id="getScopeDescription" parameterType="string" resultType="cn.pdteam.pojo.authorization.entity.Oauth2ScopeDescription">
+        SELECT *
+        FROM cts_authorization.oauth2_scope_description WHERE scope IN
+        (<foreach collection="list" separator="," item="scope">
+            #{scope,jdbcType=VARCHAR}
+        </foreach>);
+    </select>
+</mapper>

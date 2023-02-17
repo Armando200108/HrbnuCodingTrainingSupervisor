@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>授权 - SimRobot统一用户认证</title>
+    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css?h=ae510b1c65562a9ddc65f41fcd50c745">
+    <link rel="stylesheet" href="/assets/css/Montserrat.css?h=689bf9e89bfc918aa2a064cbeb090156">
+    <link rel="stylesheet" href="/assets/css/baguetteBox.min.css?h=2d761fd37d8ee0feb637c18138a4c982">
+    <link rel="stylesheet" href="/assets/css/vanilla-zoom.css?h=b1904b38fb5db9c70aa0a0b48e09a39c">
+</head>
+
+<body>
+<main class="page login-page" style="min-height: 100%">
+    <section class="clean-block clean-form dark" style="min-height: 100vh">
+        <div class="container">
+            <div class="block-heading">
+                <h2 class="text-info">SimRobot 统一认证</h2>
+                <p><span id="greeting"></span><span class="text-primary" style="font-weight: bolder" th:text="${username}">Armando</span></p>
+                <p><span class="text-primary" style="font-weight: bolder" th:text="${clientName}">test_client</span> 想要访问您的帐户信息</p>
+                <p>上述的应用需要请求以下列出的权限，如您信任该应用并同意其获取下述权限，请选中相应权限并提交。</p>
+            </div>
+            <form th:action="@{/oauth2/authorize}" method="post">
+                <div style="width: 100%">
+                    <div th:if="${!#strings.isEmpty(errorMsg)}" class="alert alert-danger text-center" role="alert"
+                         style="width: 60%;
+                    margin-left: auto;margin-right: auto">
+                        <div class="fs-6" th:text="${errorMsg}"></div>
+                    </div>
+                </div>
+                <input type="hidden" readonly="readonly" name="client_id" th:value="${clientId}"/>
+                <input type="hidden" readonly="readonly" name="state" th:value="${state}"/>
+                <div class="mb-3" th:each="scope:${scopes.entrySet()}">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" th:value="${scope.getKey()}" th:id="${scope.getKey()}" name="scope">
+                        <label class="form-check-label" th:for="${scope.getKey()}" th:text="${scope.getValue().getDescription()}">读取您的在校信息</label>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <button class="btn btn-primary w-25" type="submit">提交</button>
+                    <button class="btn btn-outline-secondary w-25">取消</button>
+                </div>
+
+            </form>
+            <div class="block-heading">
+                <p></p>
+                <p>只有在您同意的前提下，SimRobot才会根据您的授权向其提供相关信息；如果您不同意，请直接点击“取消”，SimRobot将不会与其共享任何信息！</p>
+            </div>
+        </div>
+    </section>
+</main><!-- Start: Footer Dark -->
+<footer class="page-footer dark" style="margin-top: -132px;">
+
+    <div class="footer-copyright">
+        <p>© 2021 - 2023 SimRobot Studio</p>
+    </div>
+</footer><!-- End: Footer Dark -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/assets/js/time.js"></script>
+<script src="/assets/js/baguetteBox.min.js?h=add865daffd8b6e10264279f48d8ac50"></script>
+<script src="/assets/js/vanilla-zoom.js?h=6a37ea9c996b05f763161c73127d66bc"></script>
+<script src="/assets/js/theme.js?h=a083aeb15550c5e1266c666e8a5846d9"></script>
+</body>
+
+</html>

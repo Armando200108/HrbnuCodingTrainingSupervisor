@@ -12,6 +12,8 @@
         <module>cts-api</module>
         <module>cts-provider-problemSet-4001</module>
         <module>cts-provider-contest-4002</module>
+        <module>cts-authorization-3001</module>
+        <module>cts-provider-userResource-4003</module>
     </modules>
     <properties>
         <java.version>17</java.version>

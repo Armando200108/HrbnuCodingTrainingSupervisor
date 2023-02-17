@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.pdteam.dao.UsersMapper">
+    <select id="queryUserByName" parameterType="string" resultType="cn.pdteam.pojo.authorization.entity.Users">
+        SELECT *
+        FROM cts_authorization.users
+        WHERE username = #{username,jdbcType=VARCHAR};
+    </select>
+
+    <select id="queryRolesByUsername" parameterType="string" resultType="cn.pdteam.pojo.authorization.entity.Role">
+        SELECT *
+        FROM cts_authorization.role
+        WHERE id IN
+              (SELECT roleId AS `id`
+               FROM cts_authorization.ur_bind
+               WHERE username = #{username,jdbcType=VARCHAR});
+    </select>
+</mapper>

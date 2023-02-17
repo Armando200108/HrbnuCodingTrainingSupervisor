@@ -10,6 +10,8 @@
         <module name="cts-provider-contest-4002" />
         <module name="cts-provider-problemSet-4001" />
         <module name="cts-api" />
+        <module name="cts-provider-userResource-4003" />
+        <module name="cts-authorization-3001" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
