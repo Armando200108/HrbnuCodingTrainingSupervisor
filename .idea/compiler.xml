@@ -12,6 +12,7 @@
         <module name="cts-api" />
         <module name="cts-provider-userResource-4003" />
         <module name="cts-authorization-3001" />
+        <module name="cts-client-80" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>

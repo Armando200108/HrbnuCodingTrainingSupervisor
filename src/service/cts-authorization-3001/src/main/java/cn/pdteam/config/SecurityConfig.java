@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -92,6 +93,7 @@ public class SecurityConfig {
                         .requestMatchers("/assets/**").permitAll()
                         .requestMatchers("/login").permitAll()
                         .requestMatchers("/logout").permitAll()
+                        .requestMatchers("/oauth2/user").permitAll()
                         .anyRequest().authenticated()
                 )
                 // 表单登录处理从授权服务器过滤器链到登录页面的重定向
@@ -131,16 +133,16 @@ public class SecurityConfig {
     @Bean
     public RegisteredClientRepository registeredClientRepository() {
         RegisteredClientRepository registeredClientRepository = new JdbcRegisteredClientRepository(jdbcTemplate);
-        if (registeredClientRepository.findByClientId("test_client") == null) {
+        if (registeredClientRepository.findByClientId("cts_client") == null) {
             RegisteredClient registeredClient = RegisteredClient.withId(UUID.randomUUID().toString())
-                    .clientId("test_client")
-                    .clientName("测试客户端")
-                    .clientSecret(passwordEncoder().encode("123456"))
+                    .clientId("CTS_CLIENT")
+                    .clientName("代码训练管家")
+                    .clientSecret(passwordEncoder().encode("SimRobot515"))
                     .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
                     .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
                     .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
                     .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
-                    .redirectUri("http://127.0.0.1:3001/test/callback")
+                    .redirectUri("http://cts.pdteam.cn/login/oauth2/code/cts_client")
                     .clientSecretExpiresAt(Instant.now().plusSeconds(60 * 60 * 24 * 10))
                     .scope(OidcScopes.OPENID)
                     .scope(OidcScopes.PROFILE)
@@ -219,9 +221,11 @@ public class SecurityConfig {
         return NimbusJwtDecoder.withPublicKey(publicKey).build();
     }
 
+
+
     @Bean
     public AuthorizationServerSettings authorizationServerSettings() {
-        return AuthorizationServerSettings.builder().build();
+        return AuthorizationServerSettings.builder().issuer("http://uaa.pdteam.cn:3001/").build();
     }
 
 }
