@@ -16,8 +16,7 @@ import org.springframework.web.client.RestTemplate;
 @Slf4j
 @RestController
 public class ResourceController {
-    @Autowired
-    RestTemplate restTemplate;
+    RestTemplate restTemplate=new RestTemplate();
 
     @GetMapping("/server/a/res1")
     public String getServerARes1(@RegisteredOAuth2AuthorizedClient

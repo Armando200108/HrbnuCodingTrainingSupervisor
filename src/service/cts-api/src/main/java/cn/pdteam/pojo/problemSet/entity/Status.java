@@ -1,5 +1,7 @@
 package cn.pdteam.pojo.problemSet.entity;
 
+import cn.pdteam.pojo.problemSet.enums.CodeLanguage;
+import cn.pdteam.pojo.problemSet.enums.StatusResult;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -26,18 +28,11 @@ public class Status implements Serializable {
     /**
      * 比赛id
      */
-    private Integer contestId;
+    private String contestId;
     /**
      * 评测结果
-     * 1: accept
-     * 2: wrong answer
-     * 3: time limit exceeded
-     * 4: memory limit exceeded
-     * 5: runtime error
-     * 6: Judge's Unknown Exception
-     * 7: Judging
      */
-    private Integer result;
+    private StatusResult result;
     /**
      * 运行时间(ms)
      */
@@ -52,10 +47,8 @@ public class Status implements Serializable {
     private Integer length;
     /**
      * 运行语言
-     * 1: java 11
-     * 2: c++ 11
      */
-    private Integer language;
+    private CodeLanguage language;
     /**
      * 提交时间
      */

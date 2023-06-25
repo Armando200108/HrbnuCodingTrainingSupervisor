@@ -3,6 +3,8 @@ package cn.pdteam.controller;
 import cn.pdteam.dao.StatusMapper;
 import cn.pdteam.pojo.CommonResult;
 import cn.pdteam.pojo.problemSet.entity.Status;
+import cn.pdteam.pojo.problemSet.enums.CodeLanguage;
+import cn.pdteam.pojo.problemSet.enums.StatusResult;
 import com.alibaba.cloud.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -59,10 +61,10 @@ public class StatusController {
 
     @PostMapping("/add")
     public CommonResult addStatus(@RequestParam("problemId") Integer problemId,
-                                  @RequestParam(value = "contestId", required = false) Integer contestId,
+                                  @RequestParam(value = "contestId", required = false) String contestId,
                                   @RequestParam("username") String username,
-                                  @RequestParam("language") Integer language) {
-        Status status = new Status(0, username, problemId, contestId, 7, 0, 0, 0, language, LocalDateTime.now());
+                                  @RequestParam("language") CodeLanguage language) {
+        Status status = new Status(0, username, problemId, contestId, StatusResult.PENDING, 0, 0, 0, language, LocalDateTime.now());
         statusMapper.addStatus(status);
         return new CommonResult<>(200, "success", status);
     }

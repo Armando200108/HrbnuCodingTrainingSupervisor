@@ -21,7 +21,9 @@ public class SecurityConfiguration {
     SecurityFilterChain oauth2SecurityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeRequests(requests ->
                         // 任何请求都需要认证
-                        requests.anyRequest().authenticated()
+                        requests
+                                .requestMatchers("/api/**").permitAll()
+                                .anyRequest().authenticated()
                 )
                 // oauth2三方登录
                 .oauth2Login(Customizer.withDefaults())

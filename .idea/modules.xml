@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/HRBNU Coding Training Supervisor.iml" filepath="$PROJECT_DIR$/.idea/HRBNU Coding Training Supervisor.iml" />
       <module fileurl="file://$PROJECT_DIR$/src/web-client/cts.iml" filepath="$PROJECT_DIR$/src/web-client/cts.iml" />
+      <module fileurl="file://$PROJECT_DIR$/src/web-client/cts-web/cts-web.iml" filepath="$PROJECT_DIR$/src/web-client/cts-web/cts-web.iml" />
     </modules>
   </component>
 </project>

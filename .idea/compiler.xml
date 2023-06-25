@@ -7,11 +7,13 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="cts-gateway-10000" />
+        <module name="cts-authorization-3001" />
         <module name="cts-provider-contest-4002" />
         <module name="cts-provider-problemSet-4001" />
         <module name="cts-api" />
         <module name="cts-provider-userResource-4003" />
-        <module name="cts-authorization-3001" />
+        <module name="cts-provider-judger" />
         <module name="cts-client-80" />
       </profile>
     </annotationProcessing>

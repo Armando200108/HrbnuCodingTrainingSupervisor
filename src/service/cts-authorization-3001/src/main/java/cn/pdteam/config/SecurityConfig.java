@@ -77,7 +77,7 @@ public class SecurityConfig {
                 .oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt)
 //                // 拦截 授权服务器相关的请求端点
                 .securityMatcher(requestMatcher)
-                .authorizeHttpRequests().anyRequest().authenticated().and()
+//                .authorizeHttpRequests().anyRequest().authenticated().and()
                 .csrf(csrf -> csrf.ignoringRequestMatchers(requestMatcher))
                 .apply(oAuth2AuthorizationServerConfigurer);
 

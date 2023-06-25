@@ -15,6 +15,14 @@ public class CommonResult<T> implements Serializable {
     private T data;
 
     public CommonResult(Integer code, String message) {
-        this(code,message,null);
+        this(code, message, null);
+    }
+
+    public static <T> CommonResult<T> success(T data) {
+        return new CommonResult<>(200, "成功！", data);
+    }
+
+    public static <T> CommonResult<T> success() {
+        return new CommonResult<>(200, "成功！");
     }
 }
